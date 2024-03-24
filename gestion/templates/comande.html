@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  /* Style pour centrer la carte */
+  .card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    backdrop-filter: blur(5px); /* Applique un flou à l'arrière-plan */
+  }
+
+  .card {
+    width: 400px; /* Ajustez la largeur de la card selon vos besoins */
+  }
+
+  /* Ajoutez de l'espace entre les éléments à l'intérieur de la carte */
+  .card-body {
+    padding: 20px; /* Ajustez l'espacement intérieur selon vos besoins */
+  }
+
+  .form-label {
+    margin-bottom: 10px; /* Espacement entre les étiquettes des champs */
+  }
+
+  .btn {
+    margin-top: 10px; /* Espacement entre les boutons */
+  }
+</style>
+
+<div class="card-container">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title text-center">Formulaire de commande pour l'article "{{ article.nom }}"</h5>
+      <form class="row g-3" method="post" novalidate>
+        {% csrf_token %}
+        <div class="col-12 text-center">
+          <label for="id_nom_client" class="form-label">Nom</label><br>
+          {{ form.nom_client }}
+        </div>
+        <div class="col-12 text-center">
+          <label for="id_numero_client" class="form-label">Numéro de téléphone</label><br>
+          {% if form.numero_client.errors %}
+            {% for error in form.numero_client.errors %}
+              <div class="">
+                <small class="text-danger">Numero incorect</small>
+              </div>
+            {% endfor %}
+          {% endif %}
+          {{ form.numero_client }}
+        </div>
+        <div class="col-12 text-center">
+          <label for="id_quantite" class="form-label">Quantité</label><br>
+          {{ form.quantite }}
+        </div>
+        <div class="col-12 text-center">
+          <label for="id_taille" class="form-label">Taille</label><br>
+          {{ form.taille }}
+        </div>
+        <div class="col-12 text-center">
+          <button type="submit" class="btn btn-primary">Valider</button>
+          <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

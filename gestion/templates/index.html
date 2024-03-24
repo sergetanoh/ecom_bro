@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <h1 class="text-center mt-3">Découvrez nos habits drip on drip </h1>
+
+  <div class="row mt-4">
+    <!-- Vidéo YouTube -->
+    <div class="col-12 mb-4">
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/B5wX0S1p-Uc?si=fRGhl8TJ21oCmh3X" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- Produits -->
+    {% for article in liste_articles %}
+    <div class="col-12 col-md-6 col-lg-3 mb-4">
+      <div class="card h-100">
+        <div id="carouselExample{{ article.id }}" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="{{ article.photo1.url }}" class="d-block w-100" alt="Photo 1">
+            </div>
+            <div class="carousel-item">
+              <img src="{{ article.photo2.url }}" class="d-block w-100" alt="Photo 2">
+            </div>
+            <div class="carousel-item">
+              <img src="{{ article.photo3.url }}" class="d-block w-100" alt="Photo 3">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample{{ article.id }}" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample{{ article.id }}" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ article.nom }}</a></h5>
+          <p class="card-text">{{ article.description }}</p>
+          <p class="card-text">Prix : {{ article.prix }} FCFA</p>
+          <a href="{% url 'commande' article.id %}" class="btn btn-primary">Commander</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<footer id="contact" class="footer mt-auto py-3 bg-dark text-white">
+  <div class="container text-center">
+    <span class="text-muted">© Contact : 0141752812.</span>
+    <span class="text-muted">© 2024 Simshop. Tous droits réservés.</span>
+    <div class="social-links mt-3">
+      <a href="https://www.facebook.com/profile.php?id=100063612234103&mibextid=LQQJ4d" class="text-white me-3">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      
+      <a href="https://wa.me/0141752812" class="text-white me-3">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+
+      <a href="https://www.instagram.com/simshop_?igsh=MWJ4bHhhenR0aTU5ZQ==" class="text-white me-3">
+        <i class="fab fa-instagram"></i>
+      </a>
+      
+    </div>
+  </div>
+</footer>
+
+
+
+<!-- JavaScript pour améliorer l'interaction -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Ajoute une classe de style au survol des cartes
+    $('.card').hover(
+      function() {
+        $(this).addClass('shadow-lg').css('cursor', 'pointer');
+      },
+      function() {
+        $(this).removeClass('shadow-lg');
+      }
+    );
+
+    // Ajoute un zoom sur les images au survol
+    $('.carousel-item img').hover(
+      function() {
+        $(this).addClass('img-zoom');
+      },
+      function() {
+        $(this).removeClass('img-zoom');
+      }
+    );
+  });
+</script>
+{% endblock %}
