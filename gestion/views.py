@@ -1,13 +1,13 @@
 
 from django.shortcuts import render, redirect
 import os
-from twilio.rest import Client
+
 from .forms import CommandeForm
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from .models import Article, Commande
 from django.contrib import messages
-from twilio.rest import Client
+
 # Create your views here.
 def home(request): # parametre request obligatoire qui va permettre les requettes http
     list_article=Article.objects.all() # tu recupere tout les objets de la classe article pour mettre dans list_article
@@ -92,4 +92,3 @@ class CommandeCreateView(CreateView):
 
 
 
-# Download the helper library from https://www.twilio.com/docs/python/install
