@@ -16,8 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
-from django.urls import path,include
+from django.urls import path,include,re_path
 from gestion.views import home,CommandeCreateView,recup,search
+from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +28,6 @@ urlpatterns = [
     path("auth/",include("app_auth.urls")),
     path("my-admin/",include("app_admin.urls")),
     path("article/recherche",search,name="search"),# tu vas dans article tu va cliquer sur recherche et on va appeler la fonctions search depuis views
+    re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT} ), # pour les fichiers de MEDIA
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT} ), # pour les fichiers de STATIC
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) # obligatoire 
